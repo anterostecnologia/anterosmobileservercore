@@ -1,4 +1,0 @@
-- Fazer filtrar log
-- Fazer mostrar log por sessão para não misturar os logs
-- Armazenar dicionário local no H2
-- Permitir que cada aplicação tenha acesso a bancos diferentes   
