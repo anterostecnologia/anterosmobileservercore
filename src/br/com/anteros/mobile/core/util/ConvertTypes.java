@@ -37,16 +37,16 @@ public class ConvertTypes {
 	public static SimpleDateFormat timeStampFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	public static SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
 
-	public static String replaceParametersSubst(String sql, ArrayList<ParameterSynchronism> parameters, String[] values)
+	public static String replaceParametersSubst(String sql, ParameterSynchronism[] parameters, String[] values)
 			throws ParameterConvertionException {
 		ParameterSynchronism param = null;
 		String result = sql;
 		String value = "";
 		try {
-			for (int i = 0; i < parameters.size(); i++) {
-				param = (ParameterSynchronism) parameters.get(i);
+			for (int i = 0; i < parameters.length; i++) {
+				param = (ParameterSynchronism) parameters[i];
 				value = values[i];
-				if (param.getParameterDataType() == ParameterSynchronism.SUBSTITUITION)
+				if (param.getParameterType() == ParameterSynchronism.SUBSTITUITION)
 					result = StringUtils.replaceAll(result, ":" + param.getName(), value);
 			}
 		} catch (Exception e) {
@@ -64,12 +64,12 @@ public class ConvertTypes {
 		String value = "";
 		for (ParameterSynchronism parameterSynchronism : parameters) {
 			try {
-				value = values[i];
-				Object newValue = convertType(parameterSynchronism.getParameterDataType().intValue(), value);
-				if (parameterSynchronism.getParameterType() == ParameterSynchronism.SUBSTITUITION)
-					result.add(new SubstitutedParameter(parameterSynchronism.getName(), newValue));
-				else
+				if (parameterSynchronism.getParameterType() != ParameterSynchronism.SUBSTITUITION) {
+					value = values[i];
+					Object newValue = convertType(parameterSynchronism.getParameterDataType().intValue(), value);
+
 					result.add(new NamedParameter(parameterSynchronism.getName(), newValue));
+				}
 				i++;
 			} catch (Exception e) {
 				throw new ParameterConvertionException(parameterSynchronism.getName(), value);

@@ -68,7 +68,7 @@ public class TableSynchronism extends Synchronism {
 		MobileResponse mobileResponse = new MobileResponse("", "");
 		try {
 			log.debug("Executando Ação " + mobileAction.getName() + " Tipo: SQL ##"+mobileRequest.getClientId());
-			if (this.getCountInputParams() > 0) {
+			if (this.getParameters().length > 0) {
 				if (mobileAction.getParameters().size() == 0) {
 					log.error(
 							new StringBuffer("Erro Executando Ação ").append(mobileAction.getName())
@@ -79,7 +79,7 @@ public class TableSynchronism extends Synchronism {
 					return mobileResponse;
 				}
 
-				if ((mobileAction.getParameters().get(0).length != this.getCountInputParams())) {
+				if ((mobileAction.getParameters().get(0).length != this.getParameters().length)) {
 					log.error(
 							new StringBuffer("Erro Executando Ação ").append(mobileAction.getName())
 									.append(" Tipo: SQL Tabela ").append(this.getTableNameMobile())
@@ -89,13 +89,18 @@ public class TableSynchronism extends Synchronism {
 					return mobileResponse;
 				}
 			}
+			
 			log.debug("Convertendo parâmetros para parâmetros nomeados."+" ##" + mobileRequest.getClientId());
 			NamedParameter[] params = ConvertTypes.convertNamedParametersStrings(this.getParameters(), mobileAction
 					.getParameters().get(0));
-			log.debug(new StringBuffer("Executando o sql no banco de dados ").append(new String(this.getTableSql())).
+			String sql =  new String(this.getTableSql());
+			log.debug(new StringBuffer("Executando o sql no banco de dados ").append(sql).
+					append(" ##" + mobileRequest.getClientId()).toString());
+			sql = ConvertTypes.replaceParametersSubst(sql, this.getParameters(), mobileAction.getParameters().get(0));
+			log.debug(new StringBuffer("Sql substituido ").append(sql).
 					append(" ##" + mobileRequest.getClientId()).toString());
 			synchronismManager.getSqlSession().setClientId(mobileRequest.getClientId());
-			mobileResponse = (MobileResponse) synchronismManager.getSqlSession().select(new String(this.getTableSql()),
+			mobileResponse = (MobileResponse) synchronismManager.getSqlSession().select(sql,
 					params, new MobileResponseHandler(synchronismManager, this));
 			mobileResponse.setStatus("OK");
 			log.debug(new StringBuffer("Executou Ação ").append(mobileAction.getName()).append(" ##" + mobileRequest.getClientId()).toString());
