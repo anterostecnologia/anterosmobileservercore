@@ -55,7 +55,7 @@ public class ApplicationSynchronism extends Synchronism {
 
 	@Column(name = "MIN_POOL_SIZE")
 	private Long minPoolSize = 5L;
-
+	
 	@Column(name = "DEFAULT_SCHEMA", length = 100)
 	private String defaultSchema;
 

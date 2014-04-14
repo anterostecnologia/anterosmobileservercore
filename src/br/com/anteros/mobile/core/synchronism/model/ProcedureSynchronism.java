@@ -71,19 +71,28 @@ public class ProcedureSynchronism extends Synchronism implements Comparator<Para
 				}
 
 				synchronismManager.getSqlSession().setClientId(mobileRequest.getClientId());
-				result = synchronismManager.getSqlSession().executeProcedure(CallableType.PROCEDURE, this.getName(),
-						ConvertTypes.convertParametersStrings(this.getInputParameters(), values),
-						new String[] { this.getProcedureParamOut() });
-				if (result == null) {
-					log.error(new StringBuffer("Erro Executando Ação ").append(mobileAction.getName())
-							.append(" Tipo: PROCEDURE -> ").append(this.getName()).append(" ").append("O parâmetro ")
-							.append(this.getProcedureParamOut()).append(" da PROCEDURE ").append(this.getName())
-							.append(" retornou NULO !").append(" ##" + mobileRequest.getClientId()).toString());
+				result = null;
+				try {
+					result = synchronismManager.getSqlSession().executeProcedure(CallableType.PROCEDURE,
+							this.getName(), ConvertTypes.convertParametersStrings(this.getInputParameters(), values),
+							new String[] { this.getProcedureParamOut() }, 15);
+					if (result == null) {
+						log.error(new StringBuffer("Erro Executando Ação ").append(mobileAction.getName())
+								.append(" Tipo: PROCEDURE -> ").append(this.getName()).append(" ")
+								.append("O parâmetro ").append(this.getProcedureParamOut()).append(" da PROCEDURE ")
+								.append(this.getName()).append(" retornou NULO !")
+								.append(" ##" + mobileRequest.getClientId()).toString());
 
-					mobileResponse.setStatus(new StringBuffer("O parâmetro ").append(this.getProcedureParamOut())
-							.append(" da PROCEDURE ").append(this.getName()).append(" retornou NULO !").toString());
-				} else
-					mobileResponse.setStatus(result.getOutPutParameter(this.getProcedureParamOut()) + "");
+						mobileResponse.setStatus(new StringBuffer("O parâmetro ").append(this.getProcedureParamOut())
+								.append(" da PROCEDURE ").append(this.getName()).append(" retornou NULO !").toString());
+					} else {
+						mobileResponse.setStatus(result.getOutPutParameter(this.getProcedureParamOut()) + "");
+					}
+				} finally {
+					if (result != null)
+						result.close();
+				}
+
 			}
 		} catch (Exception e) {
 			log.error(

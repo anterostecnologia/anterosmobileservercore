@@ -32,6 +32,7 @@
 			<property name="defaultSchema" value="${anteros.defaultSchema}" />
 			<property name="defaultCatalog" value="${anteros.defaultCatalog}" />
 			<property name="dataSource" value="c3p0DataSource" />
+			<property name="queryTimeout" value="${anteros.queryTimeout}" />
 		</properties>
 		<annotatedClasses>
 		    <class>br.com.anteros.mobile.core.synchronism.model.Synchronism</class>
