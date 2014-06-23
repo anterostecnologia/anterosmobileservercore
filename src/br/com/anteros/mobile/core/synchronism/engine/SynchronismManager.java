@@ -45,8 +45,8 @@ public class SynchronismManager {
 	}
 
 	public SQLSession getSqlSession() throws SQLException, Exception {
-		if (sqlSession == null || sqlSession.getConnection().isClosed() ) {
-			sqlSession = sqlSessionFactory.getNewSession();
+		if (sqlSession == null) {
+			sqlSession = sqlSessionFactory.getSession();
 		}
 		return sqlSession;
 	}
