@@ -27,9 +27,7 @@ import java.util.ArrayList;
 import br.com.anteros.mobile.core.synchronism.exception.ParameterConvertionException;
 import br.com.anteros.mobile.core.synchronism.model.ParameterSynchronism;
 import br.com.anteros.persistence.parameter.NamedParameter;
-import br.com.anteros.persistence.parameter.SubstitutedParameter;
-import br.com.anteros.persistence.session.type.LobType;
-import br.com.anteros.persistence.sql.datasource.JDBCDataSource;
+import br.com.anteros.persistence.sql.binder.LobParameterBinding;
 import br.com.anteros.persistence.util.StringUtils;
 
 public class ConvertTypes {
@@ -200,7 +198,7 @@ public class ConvertTypes {
 		case Types.CLOB:
 			if (!StringUtils.isEmpty(paramVal)) {
 				try {
-					result = new LobType(Base64.decode(paramVal), type);
+					result = new LobParameterBinding(Base64.decode(paramVal), type);
 				} catch (Exception e) {
 					throw new RuntimeException(e);
 				}
