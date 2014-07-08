@@ -62,4 +62,12 @@ public class SynchronismManager {
 	public DictionaryManager getDictionaryManager() {
 		return dictionaryManager;
 	}
+
+	public void closeSession() {
+		try {
+			sqlSession.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }
