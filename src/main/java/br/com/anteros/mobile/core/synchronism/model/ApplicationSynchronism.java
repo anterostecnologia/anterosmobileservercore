@@ -152,7 +152,6 @@ public class ApplicationSynchronism extends Synchronism {
 		return null;
 	}
 
-	@Override
 	public MobileResponse execute(SynchronismManager synchronismManager, MobileRequest mobileRequest, MobileAction mobileAction) throws Exception {
 		return null;
 	}

@@ -25,64 +25,35 @@ import br.com.anteros.persistence.metadata.annotation.Entity;
 
 @SuppressWarnings("serial")
 @Entity
-@DiscriminatorValue(value = "PARAMETRO")
-public class ParameterSynchronism extends Synchronism {
+@DiscriminatorValue(value = "CAMPO")
+public class FieldSynchronism extends Synchronism {
 
-	public static final int SUBSTITUITION = 999999;
+	@Column(name="SQL_FIELDNAME", length=100)
+	private String sqlFieldName;
 
-	public static final int INPUT = 0;
+	@Column(name="FIELD_TYPE")
+	private Long fieldType;
 
-	public static final int OUTPUT = 1;
+	public String getSqlFieldName() {
+		return sqlFieldName;
+	}
 
-	@Column(name="PARAMETER_DATA_TYPE")
-	private Long parameterDataType;
+	public void setSqlFieldName(String sqlFieldName) {
+		this.sqlFieldName = sqlFieldName;
+	}
 
-	@Column(name="PARAMETER_TYPE")
-	private Long parameterType;
-	
-	@Column(name="SEQUENCE_PARAMETER")
-	private Long sequence;
+	public Long getFieldType() {
+		return fieldType;
+	}
 
-	@Override
+	public void setFieldType(Long fieldType) {
+		this.fieldType = fieldType;
+	}
+
 	public MobileResponse execute(SynchronismManager synchronismManager,
 			MobileRequest mobileRequest, MobileAction mobileAction)
 			throws Exception {
 		return null;
 	}
-
-	public Long getParameterDataType() {
-		return parameterDataType;
-	}
-
-	public void setParameterDataType(Long parameterDataType) {
-		this.parameterDataType = parameterDataType;
-	}
-
-	public Long getParameterType() {
-		return parameterType;
-	}
-
-	public void setParameterType(Long parameterType) {
-		this.parameterType = parameterType;
-	}
-	
-	public void setParameterType(int parameterType) {
-		this.parameterType = new Long(parameterType);
-	}
-
-	public Long getSequence() {
-		return sequence;
-	}
-
-	public void setSequence(Long sequence) {
-		this.sequence = sequence;
-	}
-
-
-	@Override
-	public String toString() {
-		return this.getName();
-	}
-	
 
 }

@@ -62,7 +62,6 @@ public class TableSynchronism extends Synchronism {
 		return result.toArray(new String[] {});
 	}
 
-	@Override
 	public MobileResponse execute(SynchronismManager synchronismManager, MobileRequest mobileRequest,
 			MobileAction mobileAction) {
 		MobileResponse mobileResponse = new MobileResponse("", "");

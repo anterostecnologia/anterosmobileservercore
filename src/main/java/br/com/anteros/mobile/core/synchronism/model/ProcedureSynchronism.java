@@ -43,7 +43,6 @@ public class ProcedureSynchronism extends Synchronism implements Comparator<Para
 	@Column(name = "PROCEDURE_PARAM_OUT")
 	private String procedureParamOut;
 
-	@Override
 	public MobileResponse execute(SynchronismManager synchronismManager, MobileRequest mobileRequest,
 			MobileAction mobileAction) {
 
@@ -134,7 +133,7 @@ public class ProcedureSynchronism extends Synchronism implements Comparator<Para
 		}
 
 		Collections.sort(result, new Comparator<ParameterSynchronism>() {
-			@Override
+
 			public int compare(ParameterSynchronism o1, ParameterSynchronism o2) {
 				return o1.getSequence().compareTo(o2.getSequence());
 			}
@@ -214,7 +213,6 @@ public class ProcedureSynchronism extends Synchronism implements Comparator<Para
 		return result;
 	}
 
-	@Override
 	public int compare(ParameterSynchronism parameter1, ParameterSynchronism parameter2) {
 		if (parameter1.getSequence() > parameter2.getSequence())
 			return -1;
