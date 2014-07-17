@@ -5,13 +5,17 @@
 	<artifactId>Anteros-MobileServer-Core</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>br.com.anteros</groupId>
 			<artifactId>Anteros-Persistence</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
