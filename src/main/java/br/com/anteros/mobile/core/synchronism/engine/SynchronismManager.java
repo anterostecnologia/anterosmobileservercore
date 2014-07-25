@@ -46,7 +46,7 @@ public class SynchronismManager {
 
 	public SQLSession getSqlSession() throws SQLException, Exception {
 		if (sqlSession == null) {
-			sqlSession = sqlSessionFactory.getSession();
+			sqlSession = sqlSessionFactory.getCurrentSession();
 		}
 		return sqlSession;
 	}
