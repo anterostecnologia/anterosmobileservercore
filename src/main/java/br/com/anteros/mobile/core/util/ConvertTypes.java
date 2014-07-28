@@ -24,11 +24,11 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+import br.com.anteros.core.utils.StringUtils;
 import br.com.anteros.mobile.core.synchronism.exception.ParameterConvertionException;
 import br.com.anteros.mobile.core.synchronism.model.ParameterSynchronism;
 import br.com.anteros.persistence.parameter.NamedParameter;
 import br.com.anteros.persistence.sql.binder.LobParameterBinding;
-import br.com.anteros.persistence.util.StringUtils;
 
 public class ConvertTypes {
 	public static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
