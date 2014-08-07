@@ -67,5 +67,10 @@ public class ActionSynchronism extends Synchronism implements ISynchronism {
 	public Long getApplicationId() {
 		return getObjectOwner().getId();
 	}
+	
+	@Override
+	public String toString() {
+		return "AÇÃO "+getId()+" - "+getDescription()+" -> "+getName();
+	}
 
 }

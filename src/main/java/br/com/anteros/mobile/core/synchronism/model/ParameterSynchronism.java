@@ -77,11 +77,8 @@ public class ParameterSynchronism extends Synchronism {
 		this.sequence = sequence;
 	}
 
-
 	@Override
 	public String toString() {
-		return this.getName();
+		return "PARÂMETRO "+getId()+" - "+getDescription()+" -> "+getName();
 	}
-	
-
 }

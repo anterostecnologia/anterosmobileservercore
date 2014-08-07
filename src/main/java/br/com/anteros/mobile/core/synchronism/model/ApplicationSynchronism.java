@@ -267,4 +267,8 @@ public class ApplicationSynchronism extends Synchronism {
 		this.jndiName = jndiName;
 	}
 
+	@Override
+	public String toString() {
+		return "APLICAÇÃO "+getId()+" - "+getDescription()+" -> "+getName();
+	}
 }

@@ -222,4 +222,9 @@ public class ProcedureSynchronism extends Synchronism implements Comparator<Para
 		return 0;
 	}
 
+	@Override
+	public String toString() {
+		return "PROCEDIMENTO "+getId()+" - "+getDescription();
+	}
+
 }

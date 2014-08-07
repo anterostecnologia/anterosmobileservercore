@@ -55,5 +55,10 @@ public class FieldSynchronism extends Synchronism {
 			throws Exception {
 		return null;
 	}
+	
+	@Override
+	public String toString() {
+		return "CAMPO "+getId()+" - "+getDescription()+"-> "+getName();
+	}
 
 }

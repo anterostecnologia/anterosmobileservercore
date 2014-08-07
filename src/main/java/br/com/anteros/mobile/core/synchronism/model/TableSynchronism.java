@@ -167,5 +167,10 @@ public class TableSynchronism extends Synchronism {
 		return result.toArray(new FieldSynchronism[] {});
 
 	}
+	
+	@Override
+	public String toString() {
+		return "TABELA SINCRONISMO "+getId()+" - "+getDescription();
+	}
 
 }
