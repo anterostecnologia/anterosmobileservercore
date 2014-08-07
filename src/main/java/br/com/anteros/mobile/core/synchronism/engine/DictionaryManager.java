@@ -70,8 +70,10 @@ public class DictionaryManager {
 		log.debug("Buscando todas as aplicações. ##" + clientId);
 		try {
 			sqlSession.setClientId(clientId);
+			sqlSession.getTransaction().begin();
 			List<ApplicationSynchronism> listApp = (List<ApplicationSynchronism>) sqlSession.selectList(
 					"SELECT * FROM MOBILE_OBJETO WHERE TP_OBJETO = 'APLICACAO' ", ApplicationSynchronism.class);
+			sqlSession.getTransaction().rollback();
 			if (listApp != null) {
 				for (ApplicationSynchronism app : listApp) {
 					log.debug("Adicionando a aplicação [" + app.getName() + "] no cache. ##" + clientId);

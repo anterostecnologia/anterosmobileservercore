@@ -48,11 +48,7 @@ public class SynchronismManager {
 		if (sqlSession == null) {
 			sqlSession = sqlSessionFactory.getCurrentSession();
 		}
-		return sqlSession;
-	}
-
-	public void setSqlSession(SQLSession sqlSession) {
-		this.sqlSession = sqlSession;
+		return sqlSessionFactory.getCurrentSession();
 	}
 
 	public void clearDictionary() {
