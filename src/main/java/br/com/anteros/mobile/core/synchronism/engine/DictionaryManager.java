@@ -53,8 +53,8 @@ public class DictionaryManager {
 		try {
 			log.debug("Buscando a aplicação [" + name + "] no banco de dados. ##" + clientId);
 			sqlSession.setClientId(clientId);
-			ApplicationSynchronism app = (ApplicationSynchronism) sqlSession.selectOne(
-					"SELECT * FROM MOBILE_OBJETO WHERE NOME_OBJETO = '" + name + "' ", ApplicationSynchronism.class);
+			ApplicationSynchronism app = (ApplicationSynchronism) sqlSession.createQuery(
+					"SELECT * FROM MOBILE_OBJETO WHERE NOME_OBJETO = '" + name + "' ", ApplicationSynchronism.class).getSingleResult();
 			if (app != null) {
 				log.debug("Adicionando a aplicação [" + name + "] no cache. ##" + clientId);
 				cache.put(app.getId(), app);
@@ -71,8 +71,8 @@ public class DictionaryManager {
 		try {
 			sqlSession.setClientId(clientId);
 			sqlSession.getTransaction().begin();
-			List<ApplicationSynchronism> listApp = (List<ApplicationSynchronism>) sqlSession.selectList(
-					"SELECT * FROM MOBILE_OBJETO WHERE TP_OBJETO = 'APLICACAO' ", ApplicationSynchronism.class);
+			List<ApplicationSynchronism> listApp = (List<ApplicationSynchronism>) sqlSession.createQuery(
+					"SELECT * FROM MOBILE_OBJETO WHERE TP_OBJETO = 'APLICACAO' ", ApplicationSynchronism.class).getResultList();
 			sqlSession.getTransaction().rollback();
 			if (listApp != null) {
 				for (ApplicationSynchronism app : listApp) {

@@ -31,6 +31,7 @@ import br.com.anteros.persistence.metadata.annotation.DiscriminatorValue;
 import br.com.anteros.persistence.metadata.annotation.Entity;
 import br.com.anteros.persistence.metadata.annotation.Lob;
 import br.com.anteros.persistence.parameter.NamedParameter;
+import br.com.anteros.persistence.session.query.SQLQuery;
 
 @SuppressWarnings("serial")
 @Entity
@@ -99,8 +100,10 @@ public class TableSynchronism extends Synchronism {
 			log.debug(new StringBuffer("Sql substituido ").append(sql).
 					append(" ##" + mobileRequest.getClientId()).toString());
 			synchronismManager.getSqlSession().setClientId(mobileRequest.getClientId());
-			mobileResponse = (MobileResponse) synchronismManager.getSqlSession().select(sql,
-					params, new MobileResponseHandler(synchronismManager, this));
+			SQLQuery query = synchronismManager.getSqlSession().createQuery(sql,
+					params);
+			query.resultSetHandler(new MobileResponseHandler(synchronismManager, this));
+			mobileResponse = (MobileResponse) query.getSingleResult();
 			mobileResponse.setStatus("OK");
 			log.debug(new StringBuffer("Executou Ação ").append(mobileAction.getName()).append(" ##" + mobileRequest.getClientId()).toString());
 		} catch (ArrayIndexOutOfBoundsException e) {
