@@ -8,13 +8,15 @@
 	<properties>
 		<java.versao>1.6</java.versao>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<anteros.persistence.version>0.0.2-SNAPSHOT</anteros.persistence.version>
+		<anteros.persistence.apt.version>0.0.1-SNAPSHOT</anteros.persistence.apt.version>
 	</properties>
 
 	<dependencies>
 		<dependency>
 			<groupId>br.com.anteros</groupId>
 			<artifactId>Anteros-Persistence</artifactId>
-			<version>0.0.2-SNAPSHOT</version>
+			<version>${anteros.persistence.version}</version>
 		</dependency>
 
 		<dependency>
@@ -22,6 +24,12 @@
 			<artifactId>javax.servlet-api</artifactId>
 			<version>3.0.1</version>
 			<scope>provided</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.bsc.maven</groupId>
+			<artifactId>maven-processor-plugin</artifactId>
+			<version>2.2.4</version>
 		</dependency>
 	</dependencies>
 
@@ -36,6 +44,38 @@
 					<source>${java.versao}</source>
 				</configuration>
 			</plugin>
+			
+			<plugin>
+				<groupId>org.bsc.maven</groupId>
+				<artifactId>maven-processor-plugin</artifactId>
+				<version>2.2.4</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>process</goal>
+						</goals>
+						<phase>generate-sources</phase>
+						<configuration>
+							<outputDirectory>target/generated-sources/java</outputDirectory>
+							<processors>
+								<processor>br.com.anteros.persistence.apt.AnterosPersistenceAnnotationProcessor</processor>
+							</processors>
+						</configuration>
+					</execution>
+				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>br.com.anteros</groupId>
+						<artifactId>Anteros-Persistence-Apt</artifactId>
+						<version>${anteros.persistence.apt.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>br.com.anteros</groupId>
+						<artifactId>Anteros-Persistence</artifactId>
+						<version>${anteros.persistence.version}</version>
+					</dependency>
+				</dependencies>
+			</plugin>	
 		</plugins>
 	</build>
 
