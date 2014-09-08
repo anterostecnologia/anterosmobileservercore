@@ -61,20 +61,20 @@ public class MobileResponseHandler implements ResultSetHandler {
 					if (resultSet.getDate(i) == null)
 						return "_";
 					else
-						return ConvertTypes.dateFormat.format(resultSet.getDate(i));
+						return ConvertTypes.dateFormat(resultSet.getDate(i));
 				}
 				if (fieldType == Types.TIMESTAMP) {
 					if (resultSet.getDate(i) == null)
 						return "_";
 					else
-						return ConvertTypes.timeStampFormat.format(resultSet.getTimestamp(i));
+						return ConvertTypes.timeStampFormat(resultSet.getTimestamp(i));
 				}
 
 				if (fieldType == Types.TIME) {
 					if (resultSet.getDate(i) == null)
 						return "_";
 					else
-						return ConvertTypes.timeFormat.format(resultSet.getTimestamp(i));
+						return ConvertTypes.timeFormat(resultSet.getTimestamp(i));
 				}
 
 				if (fieldType == Types.BLOB) {

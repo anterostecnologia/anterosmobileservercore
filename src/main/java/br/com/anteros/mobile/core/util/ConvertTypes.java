@@ -17,6 +17,7 @@ package br.com.anteros.mobile.core.util;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.sql.Types;
@@ -31,9 +32,6 @@ import br.com.anteros.persistence.parameter.NamedParameter;
 import br.com.anteros.persistence.sql.binder.LobParameterBinding;
 
 public class ConvertTypes {
-	public static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-	public static SimpleDateFormat timeStampFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	public static SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
 
 	public static String replaceParametersSubst(String sql, ParameterSynchronism[] parameters, String[] values)
 			throws ParameterConvertionException {
@@ -115,10 +113,10 @@ public class ConvertTypes {
 			if (!StringUtils.isEmpty(paramVal)) {
 				try {
 					if (paramVal.contains(":")) {
-						d = timeStampFormat.parse(paramVal);
+						d = timeStampParse(paramVal);
 						result = new Timestamp(d.getTime());
 					} else {
-						d = dateFormat.parse(paramVal);
+						d = dateParse(paramVal);
 						result = new java.sql.Date(d.getTime());
 					}
 
@@ -187,7 +185,7 @@ public class ConvertTypes {
 		case Types.TIME:
 			if (!StringUtils.isEmpty(paramVal)) {
 				try {
-					result = new Time(timeFormat.parse(paramVal).getTime());
+					result = new Time(timeParse(paramVal).getTime());
 				} catch (ParseException e) {
 					throw new RuntimeException(e);
 				}
@@ -210,9 +208,9 @@ public class ConvertTypes {
 			if (!StringUtils.isEmpty(paramVal)) {
 				try {
 					if (paramVal.contains(":"))
-						result = new Timestamp(timeStampFormat.parse(paramVal).getTime());
+						result = new Timestamp(timeStampParse(paramVal).getTime());
 					else
-						result = new Timestamp(dateFormat.parse(paramVal).getTime());
+						result = new Timestamp(dateParse(paramVal).getTime());
 				} catch (ParseException e) {
 					throw new RuntimeException(e);
 				}
@@ -221,5 +219,29 @@ public class ConvertTypes {
 			break;
 		}
 		return result;
+	}
+
+	public static String dateFormat(Date date) {
+		return new SimpleDateFormat("yyyy-MM-dd").format(date);
+	}
+
+	public static String timeStampFormat(Timestamp timestamp) {
+		return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(timestamp);
+	}
+
+	public static String timeFormat(Timestamp timestamp) {
+		return new SimpleDateFormat("HH:mm:ss").format(timestamp);
+	}
+	
+	public static java.util.Date dateParse(String date) throws ParseException {
+		return new SimpleDateFormat("yyyy-MM-dd").parse(date);
+	}
+
+	public static java.util.Date timeStampParse(String timestamp) throws ParseException {
+		return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(timestamp);
+	}
+
+	public static java.util.Date timeParse(String timestamp) throws ParseException {
+		return new SimpleDateFormat("HH:mm:ss").parse(timestamp);
 	}
 }

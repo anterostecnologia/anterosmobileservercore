@@ -44,7 +44,7 @@ public class ActionSynchronism extends Synchronism implements ISynchronism {
 			MobileAction mobileAction) throws Exception {
 		if (getItems() == null)
 			throw new ObjectSynchNotFoundException(this.getName());
-		if (getItems() != Collections.EMPTY_LIST) {
+		if (getItems() != Collections.EMPTY_SET) {
 			Iterator<Synchronism> it = getItems().iterator();
 			if (it.hasNext()) {
 				Synchronism synchronism = it.next();

@@ -15,10 +15,12 @@
  ******************************************************************************/
 package br.com.anteros.mobile.core.protocol;
 
+import java.io.Serializable;
 import java.util.Vector;
 
-public class MobileRequest {
+public class MobileRequest implements Serializable {
 
+	private static final long serialVersionUID = 1L;
 	public static final String ACTION_QUEUE = "AQ";
 	public static final String ACTION_EXECUTE_QUEUE = "AE";
 	public static final String ACTION_EXECUTE_IMMEDIATE = "AI";

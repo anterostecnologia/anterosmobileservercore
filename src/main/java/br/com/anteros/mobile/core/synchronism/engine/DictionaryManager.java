@@ -15,6 +15,7 @@
  ******************************************************************************/
 package br.com.anteros.mobile.core.synchronism.engine;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,7 +28,7 @@ import br.com.anteros.mobile.core.synchronism.model.Synchronism;
 import br.com.anteros.persistence.session.SQLSession;
 
 @SuppressWarnings("unchecked")
-public class DictionaryManager {
+public class DictionaryManager implements Serializable{
 
 	private static Logger log = LoggerFactory.getLogger(DictionaryManager.class);
 	private final Map<Long, Synchronism> cache = new HashMap<Long, Synchronism>();

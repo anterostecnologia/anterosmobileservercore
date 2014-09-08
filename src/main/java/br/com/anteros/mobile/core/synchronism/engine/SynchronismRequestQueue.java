@@ -15,13 +15,16 @@
  ******************************************************************************/
 package br.com.anteros.mobile.core.synchronism.engine;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import br.com.anteros.mobile.core.protocol.MobileRequest;
 
-public class SynchronismRequestQueue {
+public class SynchronismRequestQueue implements Serializable{
 
+	private static final long serialVersionUID = 1L;
+	
 	private List<MobileRequest> queue = new ArrayList<MobileRequest>();
 
 	public SynchronismRequestQueue() {
@@ -33,7 +36,7 @@ public class SynchronismRequestQueue {
 
 	public MobileRequest getRequest(String application, String userAgent) {
 		for (MobileRequest mobileRequest : queue){
-			if (mobileRequest.getApplication().equals(application) & mobileRequest.getUserAgent().equals(userAgent)) {
+			if (mobileRequest.getApplication().equals(application) && mobileRequest.getUserAgent().equals(userAgent)) {
 				queue.remove(mobileRequest);
 				return mobileRequest;
 			}

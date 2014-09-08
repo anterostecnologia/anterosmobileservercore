@@ -15,10 +15,11 @@
  ******************************************************************************/
 package br.com.anteros.mobile.core.protocol;
 
+import java.io.Serializable;
 import java.util.Vector;
 
 @SuppressWarnings("all")
-public class MobileAction {
+public class MobileAction implements Serializable {
 	private String name;
 
 	private Vector parameters = new Vector<String[]>();;

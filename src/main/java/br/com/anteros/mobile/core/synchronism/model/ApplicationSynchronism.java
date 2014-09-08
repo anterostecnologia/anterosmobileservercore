@@ -93,7 +93,7 @@ public class ApplicationSynchronism extends Synchronism {
 		 * a fila adiciona o Request na Fila do Sincronismo para execução na
 		 * sequência
 		 */
-		if (mobileRequest.getRequestMode().equals(MobileRequest.ACTION_QUEUE) | (mobileRequest.getRequestMode().equals(MobileRequest.ACTION_EXECUTE_QUEUE)))
+		if (mobileRequest.getRequestMode().equals(MobileRequest.ACTION_QUEUE) || (mobileRequest.getRequestMode().equals(MobileRequest.ACTION_EXECUTE_QUEUE)))
 			synchronismManager.getRequestQueue().addRequest(mobileRequest);
 
 		/*

@@ -1,5 +1,6 @@
 package br.com.anteros.mobile.core.synchronism.engine;
 
+import java.io.Serializable;
 import java.sql.SQLException;
 
 import br.com.anteros.mobile.core.protocol.MobileRequest;
@@ -10,7 +11,7 @@ import br.com.anteros.mobile.core.synchronism.model.ApplicationSynchronism;
 import br.com.anteros.persistence.session.SQLSession;
 import br.com.anteros.persistence.session.SQLSessionFactory;
 
-public class SynchronismManager {
+public class SynchronismManager implements Serializable {
 
 	private SQLSession sqlSession;
 

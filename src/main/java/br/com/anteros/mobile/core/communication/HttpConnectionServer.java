@@ -45,7 +45,7 @@ public abstract class HttpConnectionServer extends HttpServlet {
 			IOException {
 		if ("IPhone".equalsIgnoreCase(request.getHeader("user-agent"))
 				|| "Android".equalsIgnoreCase(request.getHeader("user-agent"))) {
-			
+
 			response.setContentType("application/x-gzip");
 			response.setCharacterEncoding("UTF-8");
 		} else {
@@ -167,7 +167,8 @@ public abstract class HttpConnectionServer extends HttpServlet {
 
 				mobileRequest = new MobileRequest();
 				mobileRequest.setFormattedHeader(option);
-				mobileRequest.setFormattedActions(vectorRecords);
+				if (vectorRecords != null)
+					mobileRequest.setFormattedActions(vectorRecords);
 
 				MobileResponse mobileResponse = executeAction(session, mobileRequest, request, response);
 
