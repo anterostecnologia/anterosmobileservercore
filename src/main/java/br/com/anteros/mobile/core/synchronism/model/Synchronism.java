@@ -47,7 +47,7 @@ public abstract class Synchronism implements ISynchronism, Serializable, Cloneab
 	private Synchronism objectOwner;
 
 	@OrderBy(clause = "SEQUENCE_PARAMETER")
-	@Fetch(type = FetchType.EAGER, mode = FetchMode.ONE_TO_MANY, mappedBy = "objectOwner")
+	@Fetch(type = FetchType.LAZY, mode = FetchMode.ONE_TO_MANY, mappedBy = "objectOwner")
 	@Cascade(values = { CascadeType.SAVE })
 	private Set<Synchronism> items;
 
