@@ -73,7 +73,8 @@ public class ProcedureSynchronism extends Synchronism implements Comparator<Para
 				synchronismManager.getSqlSession().setClientId(mobileRequest.getClientId());
 				result = null;
 				try {
-					StoredProcedureSQLQuery storedProcedureSQLQuery = synchronismManager.getSqlSession().createStoredProcedureQuery(this.getName(), ConvertTypes.convertParametersStrings(this.getInputParameters(), values)).outputParametersName(new String[] { this.getProcedureParamOut() });
+					StoredProcedureSQLQuery storedProcedureSQLQuery = synchronismManager.getSqlSession().createStoredProcedureQuery(this.getName(), ConvertTypes.convertToNamedParamaters(this.getInputParameters(), values)).outputParametersName(new String[] { this.getProcedureParamOut() });
+					storedProcedureSQLQuery.callableType(CallableType.PROCEDURE);
 					storedProcedureSQLQuery.timeOut(15);
 					result = storedProcedureSQLQuery.execute();
 				

@@ -75,7 +75,7 @@ public class ConvertTypes {
 		return result.toArray(new NamedParameter[] {});
 	}
 
-	public static Object[] convertParametersStrings(ParameterSynchronism[] parameters, String[] values)
+	public static Object[] convertToNamedParamaters(ParameterSynchronism[] parameters, String[] values)
 			throws ParameterConvertionException {
 
 		if ((values == null) || (parameters == null))
@@ -89,7 +89,7 @@ public class ConvertTypes {
 			try {
 				value = values[i];
 				Object newValue = convertType(param.getParameterDataType().intValue(), value);
-				result.add(newValue);
+				result.add(new NamedParameter(param.getName(),newValue));
 				i++;
 			} catch (Exception e) {
 				throw new ParameterConvertionException(param.getName(), value);
