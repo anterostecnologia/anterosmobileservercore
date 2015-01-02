@@ -29,6 +29,8 @@ import br.com.anteros.core.utils.StringUtils;
 import br.com.anteros.mobile.core.synchronism.exception.ParameterConvertionException;
 import br.com.anteros.mobile.core.synchronism.model.ParameterSynchronism;
 import br.com.anteros.persistence.parameter.NamedParameter;
+import br.com.anteros.persistence.parameter.OutputNamedParameter;
+import br.com.anteros.persistence.schema.definition.type.StoredParameterType;
 import br.com.anteros.persistence.sql.binder.LobParameterBinding;
 
 public class ConvertTypes {
@@ -75,28 +77,33 @@ public class ConvertTypes {
 		return result.toArray(new NamedParameter[] {});
 	}
 
-	public static Object[] convertToNamedParamaters(ParameterSynchronism[] parameters, String[] values)
+	public static NamedParameter[] convertToNamedParamaters(ParameterSynchronism[] parameters, String[] values)
 			throws ParameterConvertionException {
 
 		if ((values == null) || (parameters == null))
-			return new Object[] {};
+			return new NamedParameter[] {};
 
-		ArrayList<Object> result = new ArrayList<Object>();
+		ArrayList<NamedParameter> result = new ArrayList<NamedParameter>();
 
 		int i = 0;
 		String value = "";
 		for (ParameterSynchronism param : parameters) {
 			try {
-				value = values[i];
-				Object newValue = convertType(param.getParameterDataType().intValue(), value);
-				result.add(new NamedParameter(param.getName(),newValue));
-				i++;
+				if ((param.getParameterType() == ParameterSynchronism.INPUT)
+						|| (param.getParameterType() == ParameterSynchronism.INPUT_OUTPUT)) {
+					value = values[i];
+					Object newValue = convertType(param.getParameterDataType().intValue(), value);
+					result.add(new NamedParameter(param.getName(), newValue));
+					i++;
+				} else {
+					result.add(new OutputNamedParameter(param.getName(), StoredParameterType.OUT));
+				}
 			} catch (Exception e) {
 				throw new ParameterConvertionException(param.getName(), value);
 			}
 		}
 
-		return result.toArray(new Object[] {});
+		return result.toArray(new NamedParameter[] {});
 	}
 
 	protected static Object convertType(int type, String paramVal) {
@@ -232,7 +239,7 @@ public class ConvertTypes {
 	public static String timeFormat(Timestamp timestamp) {
 		return new SimpleDateFormat("HH:mm:ss").format(timestamp);
 	}
-	
+
 	public static java.util.Date dateParse(String date) throws ParseException {
 		return new SimpleDateFormat("yyyy-MM-dd").parse(date);
 	}

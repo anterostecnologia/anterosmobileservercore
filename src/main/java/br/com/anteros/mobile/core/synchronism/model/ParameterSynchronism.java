@@ -33,6 +33,8 @@ public class ParameterSynchronism extends Synchronism {
 	public static final int INPUT = 0;
 
 	public static final int OUTPUT = 1;
+	
+	public static final int INPUT_OUTPUT = 2;
 
 	@Column(name="PARAMETER_DATA_TYPE")
 	private Long parameterDataType;

@@ -32,7 +32,7 @@ import br.com.anteros.persistence.metadata.annotation.DiscriminatorValue;
 import br.com.anteros.persistence.metadata.annotation.Entity;
 import br.com.anteros.persistence.metadata.annotation.type.CallableType;
 import br.com.anteros.persistence.session.ProcedureResult;
-import br.com.anteros.persistence.session.query.StoredProcedureSQLQuery;
+import br.com.anteros.persistence.session.query.SQLQuery;
 
 @SuppressWarnings("serial")
 @Entity
@@ -73,11 +73,12 @@ public class ProcedureSynchronism extends Synchronism implements Comparator<Para
 				synchronismManager.getSqlSession().setClientId(mobileRequest.getClientId());
 				result = null;
 				try {
-					StoredProcedureSQLQuery storedProcedureSQLQuery = synchronismManager.getSqlSession().createStoredProcedureQuery(this.getName(), ConvertTypes.convertToNamedParamaters(this.getInputParameters(), values)).outputParametersName(new String[] { this.getProcedureParamOut() });
-					storedProcedureSQLQuery.callableType(CallableType.PROCEDURE);
+					SQLQuery storedProcedureSQLQuery = synchronismManager.getSqlSession().createStoredProcedureQuery(
+							this.getName(), CallableType.PROCEDURE,
+							ConvertTypes.convertToNamedParamaters(this.getParameters(), values));
 					storedProcedureSQLQuery.timeOut(15);
 					result = storedProcedureSQLQuery.execute();
-				
+
 					if (result == null) {
 						log.error(new StringBuffer("Erro Executando Ação ").append(mobileAction.getName())
 								.append(" Tipo: PROCEDURE -> ").append(this.getName()).append(" ")
@@ -227,7 +228,7 @@ public class ProcedureSynchronism extends Synchronism implements Comparator<Para
 
 	@Override
 	public String toString() {
-		return "PROCEDIMENTO "+getId()+" - "+getDescription();
+		return "PROCEDIMENTO " + getId() + " - " + getDescription();
 	}
 
 }
