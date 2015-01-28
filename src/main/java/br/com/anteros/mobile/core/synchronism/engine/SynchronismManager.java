@@ -49,7 +49,7 @@ public class SynchronismManager implements Serializable {
 		if (sqlSession == null) {
 			sqlSession = sqlSessionFactory.getCurrentSession();
 		}
-		return sqlSessionFactory.getCurrentSession();
+		return sqlSession;
 	}
 
 	public void clearDictionary() {
