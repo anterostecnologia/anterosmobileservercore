@@ -18,10 +18,11 @@ public class SynchronismManager implements Serializable {
 	private SynchronismRequestQueue requestQueue;
 
 	private DictionaryManager dictionaryManager;
-	
+
 	private SQLSessionFactory sqlSessionFactory;
 
-	public SynchronismManager(SQLSession sqlSession, DictionaryManager dictionaryManager, SQLSessionFactory sqlSessionFactory) {
+	public SynchronismManager(SQLSession sqlSession, DictionaryManager dictionaryManager,
+			SQLSessionFactory sqlSessionFactory) {
 		this.sqlSession = sqlSession;
 		this.requestQueue = new SynchronismRequestQueue();
 		this.dictionaryManager = dictionaryManager;
@@ -34,10 +35,11 @@ public class SynchronismManager implements Serializable {
 
 	public MobileResponse executeRequest(MobileRequest mobileRequest) throws ApplicationNotFoundException,
 			ActionNotFoundException, Exception {
-		ApplicationSynchronism app = (this.getApplicationByName(mobileRequest.getApplication(), mobileRequest.getClientId()));
+		ApplicationSynchronism app = (this.getApplicationByName(mobileRequest.getApplication(),
+				mobileRequest.getClientId()));
 		if (app == null)
 			throw new ApplicationNotFoundException(mobileRequest.getApplication());
-		
+
 		return app.processRequest(this, mobileRequest);
 	}
 
@@ -62,7 +64,10 @@ public class SynchronismManager implements Serializable {
 
 	public void closeSession() {
 		try {
-			sqlSession.close();
+			if (sqlSession != null)
+				sqlSession.close();
+
+			sqlSession = null;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
