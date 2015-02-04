@@ -49,7 +49,7 @@ public class SynchronismManager implements Serializable {
 
 	public SQLSession getSqlSession() throws SQLException, Exception {
 		if (sqlSession == null) {
-			sqlSession = sqlSessionFactory.getCurrentSession();
+			sqlSession = sqlSessionFactory.openSession();
 		}
 		return sqlSession;
 	}
