@@ -15,6 +15,7 @@
  ******************************************************************************/
 package br.com.anteros.mobile.core.synchronism.model;
 
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 
 import org.slf4j.Logger;
@@ -64,7 +65,7 @@ public class TableSynchronism extends Synchronism {
 	}
 
 	public MobileResponse execute(SynchronismManager synchronismManager, MobileRequest mobileRequest,
-			MobileAction mobileAction) {
+			MobileAction mobileAction, Charset charset) {
 		MobileResponse mobileResponse = new MobileResponse("", "");
 		try {
 			log.debug("Executando Ação " + mobileAction.getName() + " Tipo: SQL ##"+mobileRequest.getClientId());
@@ -93,7 +94,7 @@ public class TableSynchronism extends Synchronism {
 			log.debug("Convertendo parâmetros para parâmetros nomeados."+" ##" + mobileRequest.getClientId());
 			NamedParameter[] params = ConvertTypes.convertNamedParametersStrings(this.getParameters(), mobileAction
 					.getParameters().get(0));
-			String sql =  new String(this.getTableSql());
+			String sql =  new String(this.getTableSql(), charset);
 			log.debug(new StringBuffer("Executando o sql no banco de dados ").append(sql).
 					append(" ##" + mobileRequest.getClientId()).toString());
 			sql = ConvertTypes.replaceParametersSubst(sql, this.getParameters(), mobileAction.getParameters().get(0));
@@ -113,6 +114,7 @@ public class TableSynchronism extends Synchronism {
 					+ this.getTableNameMobile() + " -> Parâmetros incorretos ");
 			return mobileResponse;
 		} catch (Exception e) {
+			e.printStackTrace();
 			log.error(new StringBuffer("Erro Executando Ação ")
 					.append(mobileAction.getName()).append(" Tipo: SQL").append(e.getMessage()).append(" ##" + mobileRequest.getClientId()).toString());
 			mobileResponse.setStatus("Erro executando ação " + mobileAction.getName() + " Tabela "

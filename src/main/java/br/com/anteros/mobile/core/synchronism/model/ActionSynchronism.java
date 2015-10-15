@@ -15,6 +15,7 @@
  ******************************************************************************/
 package br.com.anteros.mobile.core.synchronism.model;
 
+import java.nio.charset.Charset;
 import java.util.Collections;
 import java.util.Iterator;
 
@@ -41,14 +42,14 @@ public class ActionSynchronism extends Synchronism implements ISynchronism {
 	public static final int ACTION_EXPORT = 1;
 
 	public MobileResponse execute(SynchronismManager synchronismManager, MobileRequest mobileRequest,
-			MobileAction mobileAction) throws Exception {
+			MobileAction mobileAction, Charset charset) throws Exception {
 		if (getItems() == null)
 			throw new ObjectSynchNotFoundException(this.getName());
 		if (getItems() != Collections.EMPTY_SET) {
 			Iterator<Synchronism> it = getItems().iterator();
 			if (it.hasNext()) {
 				Synchronism synchronism = it.next();
-				return synchronism.execute(synchronismManager, mobileRequest, mobileAction);
+				return synchronism.execute(synchronismManager, mobileRequest, mobileAction, charset);
 			}
 		}
 

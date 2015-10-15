@@ -15,6 +15,8 @@
  ******************************************************************************/
 package br.com.anteros.mobile.core.synchronism.model;
 
+import java.nio.charset.Charset;
+
 import br.com.anteros.mobile.core.protocol.MobileAction;
 import br.com.anteros.mobile.core.protocol.MobileRequest;
 import br.com.anteros.mobile.core.protocol.MobileResponse;
@@ -51,7 +53,7 @@ public class FieldSynchronism extends Synchronism {
 	}
 
 	public MobileResponse execute(SynchronismManager synchronismManager,
-			MobileRequest mobileRequest, MobileAction mobileAction)
+			MobileRequest mobileRequest, MobileAction mobileAction, Charset charset)
 			throws Exception {
 		return null;
 	}

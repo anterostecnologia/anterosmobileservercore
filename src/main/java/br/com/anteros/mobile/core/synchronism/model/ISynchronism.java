@@ -15,6 +15,8 @@
  ******************************************************************************/
 package br.com.anteros.mobile.core.synchronism.model;
 
+import java.nio.charset.Charset;
+
 import br.com.anteros.mobile.core.protocol.MobileAction;
 import br.com.anteros.mobile.core.protocol.MobileRequest;
 import br.com.anteros.mobile.core.protocol.MobileResponse;
@@ -22,5 +24,5 @@ import br.com.anteros.mobile.core.synchronism.engine.SynchronismManager;
 
 public interface ISynchronism {
 
-	public MobileResponse execute(SynchronismManager synchronismManager, MobileRequest mobileRequest,MobileAction mobileAction) throws Exception;
+	public MobileResponse execute(SynchronismManager synchronismManager, MobileRequest mobileRequest,MobileAction mobileAction, Charset charset) throws Exception;
 }

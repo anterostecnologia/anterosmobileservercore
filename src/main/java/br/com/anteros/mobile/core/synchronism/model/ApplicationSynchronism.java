@@ -15,8 +15,10 @@
  ******************************************************************************/
 package br.com.anteros.mobile.core.synchronism.model;
 
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 
+import br.com.anteros.core.utils.AnterosStandardsCharsets;
 import br.com.anteros.mobile.core.protocol.MobileAction;
 import br.com.anteros.mobile.core.protocol.MobileRequest;
 import br.com.anteros.mobile.core.protocol.MobileResponse;
@@ -70,6 +72,9 @@ public class ApplicationSynchronism extends Synchronism {
 	
 	@Column(name = "JNDI_NAME", length = 250)
 	private String jndiName;
+	
+	@Column(name = "CHARSET_NAME", length = 15)
+	private String charsetName;
 
 	public MobileResponse processRequest(SynchronismManager synchronismManager, MobileRequest mobileRequest) throws Exception {
 
@@ -136,7 +141,7 @@ public class ApplicationSynchronism extends Synchronism {
 		for (MobileAction mobileAction : mobileRequest.getActions()) {
 			actionSynchronism = this.getActionByName(mobileAction.getName());
 			if (actionSynchronism != null) {
-				mobileResponse = actionSynchronism.execute(synchronismManager, mobileRequest, mobileAction);
+				mobileResponse = actionSynchronism.execute(synchronismManager, mobileRequest, mobileAction, AnterosStandardsCharsets.getCharsetByName(charsetName));
 				if (!mobileResponse.getStatus().startsWith(MobileResponse.OK))
 					return mobileResponse;
 			}
@@ -152,7 +157,7 @@ public class ApplicationSynchronism extends Synchronism {
 		return null;
 	}
 
-	public MobileResponse execute(SynchronismManager synchronismManager, MobileRequest mobileRequest, MobileAction mobileAction) throws Exception {
+	public MobileResponse execute(SynchronismManager synchronismManager, MobileRequest mobileRequest, MobileAction mobileAction, Charset charset) throws Exception {
 		return null;
 	}
 
@@ -270,5 +275,13 @@ public class ApplicationSynchronism extends Synchronism {
 	@Override
 	public String toString() {
 		return "APLICAÇÃO "+getId()+" - "+getDescription()+" -> "+getName();
+	}
+
+	public String getCharsetName() {
+		return charsetName;
+	}
+
+	public void setCharsetName(String charsetName) {
+		this.charsetName = charsetName;
 	}
 }

@@ -15,6 +15,7 @@
  ******************************************************************************/
 package br.com.anteros.mobile.core.synchronism.model;
 
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -45,7 +46,7 @@ public class ProcedureSynchronism extends Synchronism implements Comparator<Para
 	private String procedureParamOut;
 
 	public MobileResponse execute(SynchronismManager synchronismManager, MobileRequest mobileRequest,
-			MobileAction mobileAction) {
+			MobileAction mobileAction, Charset charset) {
 
 		log.debug("Iniciou execução PROCEDIMENTO " + getName() + " ##" + mobileRequest.getClientId());
 		MobileResponse mobileResponse = new MobileResponse("", "");
